@@ -1,4 +1,5 @@
 const userService = require("../services/userService")
+
 const UserController = {
 
     getAllUsers: async (req, res) => {
@@ -26,19 +27,19 @@ const UserController = {
     //     }
     // },
 
-    // createUser: async (req, res) => {
-    //     const params = req.body
-    //     console.log("controller params", params)
+    createUser: async (req, res) => {
+        const params = req.body
+        console.log("controller params", params)
 
-    //     try {
-    //         const newUser = await userService.createUser(params)
-    //         res.status(200).json({ message: 'Signup successful!', user: newUser });
+        try {
+            const newUser = await userService.createUser(params)
+            res.status(200).json({ message: 'Signup successful!', user: newUser });
 
 
-    //     } catch (error) {
+        } catch (error) {
 
-    //     }
-    // },
+        }
+    },
 
     login: async (req, res) => {
         // res.send("call Api")
@@ -52,7 +53,10 @@ const UserController = {
             console.log(result)
             if (result.status === 200) {
                 // Login successful
-                res.status(result.status).json({ message: result.message, user: result.user });
+                const token = await userService.generateToken(result.user)
+                console.log('token', token)
+                res.json({ token })
+                //res.status(result.status).json({ message: result.message, user: result.user });
 
                 //res.send("i am alive")
             } else {
