@@ -20,12 +20,7 @@ app.use(bodyparser.json())
 app.use('/', usersRouter)
 
 
-// app.use(cors({
-//     origin: '*'
-// }));
-// app.use(cors({
-//     origin: 'http://localhost:4200' // Allow requests only from this origin
-// }));
+
 app.use(function (request, response, next) {
     response.header("Access-Control-Allow-Origin", "*");
     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

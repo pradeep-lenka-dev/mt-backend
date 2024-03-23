@@ -17,43 +17,51 @@ class expenseService {
     }
 
     async getRecentExpenses(params) {
-        //console.log("🚀 ~ expenseService ~ getRecentExpenses ~ params:", params)
-        //const token = JSON.parse(params);
-
 
         let userId = params.useId;
-        //console.log(userId);
         try {
             let startDate = moment().startOf('day')
-            let endDate = moment().endOf('day')      //new Date()
+            let endDate = moment().endOf('day')
             let query = {
                 createdBy: new mongoose.Types.ObjectId(userId),
                 expenseDate: {
                     $gte: startDate.toDate(),
                     $lt: startDate.endOf('day').toDate()
                 }
-
             }
-            //console.log("🚀 ~ expenseService ~ getRecentExpenses ~ query:", query)
             const recentExpense = await Expense.find(query)
-            //console.log("🚀 ~ expenseService ~ getRecentExpenses ~ recentExpense:", recentExpense)
             return recentExpense
-            //return { status: 200, message: 'Login successful', recentExpense };
 
         } catch (error) {
             console.log("🚀 ~ expenseService ~ getRecentExpenses ~ error:", error)
 
         }
-        console.log("🚀 ~ expenseService ~ getRecentExpenses ~ startDate:", startDate)
-        console.log("🚀 ~ expenseService ~ getRecentExpenses ~ startDate:", startDate)
-
     }
 
     async getExpense() {
         try {
-            const expense = await Expense.find()
+            const expense = await Expense.find({ isDelete: "false" })
             return expense
 
+        } catch (error) {
+
+        }
+    }
+
+    async getCurentMonthExpense(params) {
+        try {
+            const userId = new mongoose.Types.ObjectId(params.userId);
+            const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+            const endOfMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
+            let query = {
+                createdBy: userId,
+                expenseDate: {
+                    $gte: startOfMonth,
+                    $lte: endOfMonth
+                }
+            }
+            const expenses = await Expense.find(query)
+            return expenses
         } catch (error) {
 
         }

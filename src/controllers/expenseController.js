@@ -5,8 +5,9 @@ const expenseController = {
 
     addExpense: async (req, res) => {
         let params = req.body
+        console.log("🚀 ~ addExpense: ~ params:", params)
         params.isDelete = false
-         params.createdBy = user_id
+        params.createdBy = user_id
 
         try {
 
@@ -21,10 +22,7 @@ const expenseController = {
         let params = req.body
         try {
             const latestExpense = await expenseService.getRecentExpenses(params)
-            console.log("🚀 ~ getRecentExpenses: ~ latestExpense:", latestExpense)
-           // return latestExpense
-        //    res { status: 200, message: 'Login successful', user }
-           res.status(200).json({ message: 'get expense successfull', expense: latestExpense })
+            res.status(200).json({ message: 'get expense successfull', expense: latestExpense })
 
         } catch (error) {
 
@@ -39,7 +37,17 @@ const expenseController = {
         } catch (error) {
 
         }
+    },
+
+    getCurentMonthExpense: async (req, res) => {
+        try {
+            const AllExpense = await expenseService.getCurentMonthExpense(req.body);
+            res.status(200).json({ status: 'success', message: 'get expense successful', expense: AllExpense });
+        } catch (error) {
+            res.status(500).json({ status: 'error', message: 'Internal server error' });
+        }
     }
+    
 
 }
 
