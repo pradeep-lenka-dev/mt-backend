@@ -3,15 +3,21 @@ const jwt = require("jsonwebtoken")
 
 class userService {
     async generateToken(params) {
-        console.log(params)
-        return jwt.sign({ email: params.email }, 'secret', { expiresIn: '1h' })
+        console.log("paams from token gen", params._id)
+        return jwt.sign(
+            {
+                _id: params._id,
+                email: params.email,
+                password: params.password
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
 
     }
     async getAllUsers() {
         try {
-            console.log("call service")
             const users = await User.find()
-            console.log(users, "asdfgh")
             return users
         } catch (error) {
             console.log("error from service error:", error)
@@ -45,11 +51,11 @@ class userService {
             if (!user) {
                 return { status: 401, message: "Invalid credentials" };
             }
-           
+
 
             return { status: 200, message: 'Login successful', user };
         } catch (error) {
-            console.error("Error in login:", error);
+            
             return { status: 500, message: 'Internal Server Error' };
         }
     }

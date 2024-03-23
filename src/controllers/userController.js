@@ -8,8 +8,6 @@ const UserController = {
             const users = await userService.getAllUsers()
             console.log("Users from UserController USERS:", users)
             res.json(users)
-            //return users;
-
         } catch (error) {
 
         }
@@ -53,9 +51,16 @@ const UserController = {
             console.log(result)
             if (result.status === 200) {
                 // Login successful
+                const user = result.user
+                console.log("user from usercontroller file line no ----57 user:", user)
                 const token = await userService.generateToken(result.user)
-                console.log('token', token)
-                res.json({ token })
+                const loginUser = {
+                    useId: user._id,
+                }
+
+                console.log('token', token, loginUser)
+                res.json({ token, loginUser })
+                // res.json({ loginUser })
                 //res.status(result.status).json({ message: result.message, user: result.user });
 
                 //res.send("i am alive")
