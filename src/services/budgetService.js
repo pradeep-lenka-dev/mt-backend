@@ -12,5 +12,15 @@ class budgetService {
 
     }
 
+    async getBudget(budgetquery) {
+        try {
+            const budget = await Budget.findOne(budgetquery)
+            return budget
+
+        } catch (error) {
+
+        }
+    }
+
 }
 module.exports = new budgetService()

@@ -30,6 +30,7 @@ class expenseService {
                 }
             }
             const recentExpense = await Expense.find(query)
+            console.log("🚀 ~ expenseService ~ getRecentExpenses ~ recentExpense:", recentExpense)
             return recentExpense
 
         } catch (error) {
