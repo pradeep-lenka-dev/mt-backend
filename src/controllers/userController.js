@@ -1,4 +1,5 @@
 const userService = require("../services/userService")
+const authService = require("../services/authService")
 
 const UserController = {
 
@@ -53,7 +54,9 @@ const UserController = {
                 // Login successful
                 const user = result.user
                 console.log("user from usercontroller file line no ----57 user:", user)
-                const token = await userService.generateToken(result.user)
+                const token = await authService.generateToken(result.user)
+                console.log("🚀 ~ login: ~ token:", token)
+                //console.log("🚀 ~ login: ~ token:", token)
                 const loginUser = {
                     useId: user._id,
                 }

@@ -9,10 +9,11 @@ const categoriesController = require('../controllers/categoriesController');
 router.route('/login').post(UserController.login);
 router.route('/users').get(UserController.getAllUsers);
 router.route('/signup').post(UserController.createUser);
+router.route('/addbudget').post(authenticate, budgetController.addBudget);
+router.route('/getbudget').post( budgetController.addBudget);
 router.route('/addexpense').post(authenticate, expenseController.addExpense)
 router.route('/getAllExpense').get(expenseController.getAllExpense)
 router.route('/getRecentExpenses').post(expenseController.getRecentExpenses)
-router.route('/addbudget').post(budgetController.addBudget);
 router.route('/getCurentMonthExpense').post(expenseController.getCurentMonthExpense)
 router.route('/getCategoriesList').post(categoriesController.getCategoriesList)
 
