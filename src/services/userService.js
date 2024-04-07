@@ -4,6 +4,21 @@ const jwt = require("jsonwebtoken")
 class userService {
     async generateToken(params) {
         console.log("paams from token gen", params._id)
+        const accesstoken = jwt.sign({
+            _id: params._id,
+            email: params.email,
+            password: params.password
+        },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' })
+        const refreshToken = jwt.sign({
+            _id: params._id,
+            email: params.email,
+            password: params.password
+        },
+            process.env.JWT_SECRET,
+            { expiresIn: '1m' });
+
         return jwt.sign(
             {
                 _id: params._id,
@@ -11,7 +26,7 @@ class userService {
                 password: params.password
             },
             process.env.JWT_SECRET,
-            { expiresIn: '1h' }
+            { expiresIn: '1m' }
         );
 
     }
@@ -55,7 +70,7 @@ class userService {
 
             return { status: 200, message: 'Login successful', user };
         } catch (error) {
-            
+
             return { status: 500, message: 'Internal Server Error' };
         }
     }
