@@ -29,8 +29,6 @@ const expenseController = {
     getRecentExpenses: async (req, res) => {
         let params = req.body
         try {
-            console.log(l);
-
             const latestExpense = await expenseService.getRecentExpenses(params)
             res.status(200).json({ message: 'get expense successfull', expense: latestExpense })
 
