@@ -57,10 +57,8 @@ class userService {
 
 
     async login(params) {
-        console.log("service params", params)
         try {
             const { email, password } = params;
-
             const user = await User.findOne({ email, password }).exec();
 
             if (!user) {
@@ -70,7 +68,7 @@ class userService {
 
             return { status: 200, message: 'Login successful', user };
         } catch (error) {
-
+            // throw new Error(error)
             return { status: 500, message: 'Internal Server Error' };
         }
     }
