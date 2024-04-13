@@ -4,10 +4,12 @@ class commonService {
     async logError(params) {
             const errorLog = new ErrorLog({
                 timestamp: new Date(),
-                errorCode: '140',
-                errorMessage: error.message,
-                errorAt: fileName,
-                username: req.body.email,
+                errorCode: params.code,
+                errorMessage: params.message,
+                //errorAt: fileName,
+                errorAt: `${params.fileName} -> ${params.functionName}`,
+                userId: params.userId ? params.userId : '',
+                username: params.username ? params.username:'',
             })
             await errorLog.save()
     }
