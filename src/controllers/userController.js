@@ -1,12 +1,9 @@
 const userService = require("../services/userService")
 const authService = require("../services/authService")
-const ErrorLog = require("../models/errorLogsModel")
-//const commonservice= require("../services/commonService")
-// import commonService from "../services/commonService";
-//const commonService = require("../services/commonService");
-
+const commonService = require("../services/commonservice");
 
 const path = require('path')
+const fileName = path.basename(__filename);
 
 const UserController = {
 
@@ -47,16 +44,14 @@ const UserController = {
                 res.status(result.status).json({ error: result.message });
             }
         } catch (error) {
-            const fileName = path.basename(__filename);
-
-            const errorLog = new ErrorLog({
-                timestamp: new Date(),
-                errorCode: '140',
-                errorMessage: error.message,
-                errorAt: fileName,
+            const errorObj = {
+                code: '140',
+                message: error.message,
+                fileName: fileName,
+                functionName: 'login()',
                 username: req.body.email,
-            })
-            await errorLog.save()
+            };
+            await commonService.logError(errorObj)
             res.status(500).json({ error: 'Internal Server Error' });
         }
     }

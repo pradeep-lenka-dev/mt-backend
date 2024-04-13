@@ -12,8 +12,17 @@ class budgetService {
 
     }
 
-    async getBudget(budgetquery) {
+    async getBudget(params) {
         try {
+            const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+            const endOfMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
+            budgetQuery = {
+                createdBy: userId,            
+                budgetDate: {
+                    $gte: startOfMonth,
+                    $lte: endOfMonth
+                }
+            }
             const budget = await Budget.findOne(budgetquery)
             return budget
 
