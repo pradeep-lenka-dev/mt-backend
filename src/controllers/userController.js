@@ -19,12 +19,14 @@ const UserController = {
 
     createUser: async (req, res) => {
         const params = req.body
+        params.isDelete = false
         try {
             const newUser = await userService.createUser(params)
             res.status(200).json({ message: 'Signup successful!', user: newUser });
 
 
         } catch (error) {
+        console.log("🚀 ~ createUser: ~ error:", error)
 
         }
     },
