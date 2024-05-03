@@ -30,7 +30,6 @@ class expenseService {
                 }
             }
             const recentExpense = await Expense.find(query)
-            console.log("🚀 ~ expenseService ~ getRecentExpenses ~ recentExpense:", recentExpense)
             return recentExpense
 
         } catch (error) {
@@ -41,8 +40,13 @@ class expenseService {
 
     async getExpense(params) {
         try {
-            const expense = await Expense.find({ isDelete: "false",createdBy: new mongoose.Types.ObjectId(params.userId),
-        })
+            let con = {
+                isDelete: "false",
+                // createdBy: mongoose.ObjectId(params.userId)
+                createdBy: new mongoose.Types.ObjectId(params.useId)
+
+            }
+            const expense = await Expense.find(con)
             return expense
 
         } catch (error) {
