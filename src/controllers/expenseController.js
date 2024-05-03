@@ -46,7 +46,7 @@ const expenseController = {
 
     getAllExpense: async (req, res) => {
         try {
-            const AllExpense = await expenseService.getExpense()
+            const AllExpense = await expenseService.getExpense(req.body)
             res.status(200).json({ message: 'get expense successfull', expense: AllExpense })
 
         } catch (error) {

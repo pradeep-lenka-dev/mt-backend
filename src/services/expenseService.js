@@ -39,9 +39,10 @@ class expenseService {
         }
     }
 
-    async getExpense() {
+    async getExpense(params) {
         try {
-            const expense = await Expense.find({ isDelete: "false" })
+            const expense = await Expense.find({ isDelete: "false",createdBy: new mongoose.Types.ObjectId(params.userId),
+        })
             return expense
 
         } catch (error) {
