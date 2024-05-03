@@ -4,7 +4,7 @@ const budgetSchema = new mongoose.Schema({
     budgetAmount: { type: Number },
     budgetDate: { type: Date },
     isDelete: { type: Boolean },
-    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 })
 const Budget = mongoose.model('Budget', budgetSchema);
 

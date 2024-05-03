@@ -10,7 +10,7 @@ router.route('/login').post(UserController.login);
 router.route('/users').get(UserController.getAllUsers);
 router.route('/signup').post(UserController.createUser);
 router.route('/addbudget').post(authenticate, budgetController.addBudget);
-router.route('/getbudget').post( budgetController.addBudget);
+router.route('/getbudget').post( budgetController.getBudget);
 router.route('/addexpense').post(authenticate, expenseController.addExpense)
 router.route('/getAllExpense').post(expenseController.getAllExpense)
 router.route('/getRecentExpenses').post(expenseController.getRecentExpenses)

@@ -2,13 +2,14 @@ const budgetService = require('../services/budgetService')
 const commonService = require("../services/commonservice")
 const path = require('path')
 const fileName = path.basename(__filename);
+const mongoose = require("mongoose")
 
 const budgetController = {
     addBudget: async (req, res) => {
         try {
             let params = req.body
             params.isDelete = false
-            params.user_id = user_id
+            params.createdBy = user_id
             const addBudget = await budgetService.addBudget(params)
             res.status(200).json({ message: 'Add Budget successful!', updatedExpense: addBudget });
 
@@ -26,7 +27,8 @@ const budgetController = {
     },
 
     getBudget: async (req, res) => {
-        const userId = new mongoose.Types.ObjectId(params.userId);
+        let params = req.body
+        const userId = new mongoose.Types.ObjectId(params.useId);
         params = {
             userId: userId,
         }

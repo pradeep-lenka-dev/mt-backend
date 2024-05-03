@@ -16,14 +16,15 @@ class budgetService {
         try {
             const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
             const endOfMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
-            budgetQuery = {
-                createdBy: userId,            
+            console.log("🚀 ~ budgetService ~ getBudget ~ endOfMonth:", endOfMonth)
+            let budgetQuery = {
+                createdBy: params.userId,            
                 budgetDate: {
                     $gte: startOfMonth,
                     $lte: endOfMonth
                 }
             }
-            const budget = await Budget.findOne(budgetquery)
+            const budget = await Budget.findOne(budgetQuery)
             return budget
 
         } catch (error) {
