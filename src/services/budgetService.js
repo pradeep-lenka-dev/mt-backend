@@ -27,7 +27,7 @@ class budgetService {
             const budget = await Budget.findOne(budgetQuery)
             return budget
 
-        } catch (error) {
+        } catch (error) {/*  */
 
         }
     }
